@@ -1,26 +1,57 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<div class="todo-app" id="app">
+  <h1 class="todo-app__title">{{ title }}</h1>
+  <AddTodo @createTodo="addTodo"></AddTodo>
+  <TodoList v-if="this.todos.length > 0"
+  :todos="todos"
+  @removeTodo="removeTodo"
+  ></TodoList>
+  <div v-else>Задач нет</div>
+</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
+import TodoList from '@/components/TodoList'
+import AddTodo from '@/components/AddTodo'
 export default {
-  name: 'App',
   components: {
-    HelloWorld
+    TodoList, AddTodo
+  },
+  data() {
+    return {
+      title: 'Туду лист',
+      todos: [
+        { id: "1", title: "Поесть", text: "Пельмешки подойдут2342342" },
+        { id: "2", title: "Поспать", text: "Часов бы до июня" },
+        { id: "3", title: "Погамать", text: "Evil Dead the Game збс" },
+      ]
+    }
+  }, methods: {
+    addTodo(newTodo) {
+      this.todos.push(newTodo);
+    },
+    removeTodo(todo) {
+      console.log(todo)
+      this.todos = this.todos.filter(el => {
+        return el.id !== todo.id 
+      })
+    }
   }
 }
 </script>
 
-<style>
-#app {
+<style lang="scss" scoped>
+.todo-app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 95%;
+
+  &__title {
+    margin: 0 0 30px;
+  }
 }
 </style>
