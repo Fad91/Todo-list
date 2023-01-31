@@ -30,11 +30,10 @@ export default {
   }, 
   methods: {
     removeTodo() {
-      this.$emit('removeTodo', this.todo)
+      this.$emit('removeTodo', this.todo);
     }
   }
 }
-// @click="$emit('remove', todo)"
 </script>
 
 <style lang="scss" scoped>

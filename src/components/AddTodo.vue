@@ -1,28 +1,22 @@
 <template>
   <div class="add-todo">
-    <form class="todo-form" @submit.prevent>
+    <form class="todo-form" @submit.prevent="createTodo">
       <label for="title" class="todo-form__label">
-        <input type="text" name="title" id="title" v-model.trim="todo.title" placeholder="введите название задачи">
-        <!-- <span v-for="error in $v.todo.title.$errors" :key="error.$uid">{{ error.message }}</span> -->
+        <el-input name="title" id="title" v-model="v$.todo.title.$model" placeholder="введите название задачи"/>
+        <span v-for="error in v$.todo.title.$errors" :key="error.$uid">{{ error.$message }}</span>
       </label>
       <label for="text" class="todo-form__label">
-        <input type="text" name="text" id="text" v-model.trim="todo.text" placeholder="введите описание задачи">
-        <!-- <span v-for="error in $v.todo.title.$errors" :key="error.$uid">{{ error.message }}</span> -->
+        <el-input type="text" name="text" id="text" v-model="v$.todo.text.$model" placeholder="введите описание задачи"/>
+        <span v-for="error in v$.todo.text.$errors" :key="error.$uid">{{ error.$message }}</span>
       </label>
-      <button type="submit" class="add-todo__button" @click="createTodo">Добавить</button>
+      <button type="submit" class="todo-form__button">Добавить</button>
     </form>
   </div>
 </template>
 
 <script>
-import { useVuelidate } from '@vuelidate/core'
+import useVuelidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
-// import { reactive } from 'vue'
-
-// let formData = reactive({
-//   title: '',
-//   text: ''
-// })
 
  export default {
   name: "AddTodo",
@@ -41,8 +35,8 @@ import { required } from '@vuelidate/validators'
   validations () {
     return {
         todo: {
-          title: { required }, // Matches this.firstName
-          text: { required }, // Matches this.lastName
+          title: { required, $autoDirty: true  },
+          text: { required, $autoDirty: true  }
         }
     }
   },
@@ -51,14 +45,18 @@ import { required } from '@vuelidate/validators'
       const result = await this.v$.todo.$validate()
       if (result) {
         this.todo.id = Date.now(),
-        this.$emit('createTodo', this.todo)
-        this.todo = {
+        this.$emit('createTodo', this.todo);
+        this.clearTodo();
+        this.v$.$reset();
+      } else {
+        return
+      }
+    },
+    clearTodo() {
+      this.todo = {
           title: "",
           text: ""
-        }
-      } else {
-          alert ('Форма не заполнена')
-      }
+         }
     }
   }
  }
@@ -78,5 +76,17 @@ import { required } from '@vuelidate/validators'
   flex-direction: column;
   row-gap: 10px;
   width: 100%;
+
+  &__label {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__button {
+    padding: 5px 15px;
+    background: rgb(34, 136, 252);;
+    border: none;
+    color: white;
+  }
 }
 </style>
