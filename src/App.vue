@@ -25,17 +25,36 @@ export default {
         { id: "1", title: "Поесть", text: "Пельмешки подойдут2342342" },
         { id: "2", title: "Поспать", text: "Часов бы до июня" },
         { id: "3", title: "Погамать", text: "Evil Dead the Game збс" },
-      ]
+      ],
+      computedTodos: []
     }
   }, methods: {
     addTodo(newTodo) {
       this.todos.push(newTodo);
     },
     removeTodo(todo) {
-      console.log(todo)
       this.todos = this.todos.filter(el => {
-        return el.id !== todo.id 
+        return el.id !== todo.id
       })
+    }
+    // changedTodos() {
+    //   return this.todos.forEach(todo => {
+    //       console.log(todo)
+    //       return this.computedTodos.push(todo)
+    //     })
+    // }
+  },
+  watch: {
+    todos: {
+      handler() {
+        localStorage.setItem('todos', JSON.stringify(this.todos))
+      },
+      deep: true
+    }
+  }, 
+  created () {
+    if (localStorage.getItem('todos')) {
+      this.todos = JSON.parse(localStorage.getItem('todos'))
     }
   }
 }

@@ -58,7 +58,15 @@ import { required } from '@vuelidate/validators'
           text: ""
          }
     }
-  }
+  }, 
+  // watch: {
+  //   todo: {
+  //     handler(newVal) {
+  //       console.log(newVal);
+  //   }, 
+  //     deep: true
+  //   }
+  // }
  }
 </script>
 
