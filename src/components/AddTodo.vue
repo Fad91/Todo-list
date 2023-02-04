@@ -44,8 +44,12 @@ import { required } from '@vuelidate/validators'
     async createTodo() {
       const result = await this.v$.todo.$validate()
       if (result) {
-        this.todo.id = Date.now(),
-        this.$emit('createTodo', this.todo);
+        const newTodo = {
+          id: Date.now(),
+          title: this.todo.title,
+          text: this.todo.text
+        }
+        this.$emit('createTodo', newTodo);
         this.clearTodo();
         this.v$.$reset();
       } else {

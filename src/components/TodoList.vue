@@ -1,13 +1,14 @@
 <template>
  <ul class="todo-list">
-  <TodoItem 
-    v-for="(todo, index) in todos" 
-    :todo="todo"
-    :index="index"
-    :key="todo.id"
-    @removeTodo="removeTodo"
-  >
-  </TodoItem>
+  <transition-group name="todo-list">
+    <TodoItem 
+      v-for="(todo, index) in todos" 
+      :todo="todo"
+      :index="index"
+      :key="todo.id"
+      @removeTodo="removeTodo"
+    />
+  </transition-group>
  </ul>
 </template>
 
@@ -46,5 +47,19 @@ export default {
   display: flex;
   flex-direction: column;
   row-gap: 20px;
+}
+
+.todo-list-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+.todo-list-enter-active,
+.todo-list-leave-active {
+  transition: all 1s ease;
+}
+.todo-list-enter-from,
+.todo-list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
 }
 </style>
