@@ -76,29 +76,4 @@ import { required } from '@vuelidate/validators'
 
 <style lang="scss" scoped>
 
-.add-todo {
-  display: flex;
-  flex-direction: column;
-  max-width: 400px;
-  width: 95%;
-  margin: 0 auto 25px;
-}
-.todo-form {
-  display: flex;
-  flex-direction: column;
-  row-gap: 10px;
-  width: 100%;
-
-  &__label {
-    display: flex;
-    flex-direction: column;
-  }
-
-  &__button {
-    padding: 5px 15px;
-    background: rgb(34, 136, 252);;
-    border: none;
-    color: white;
-  }
-}
 </style>

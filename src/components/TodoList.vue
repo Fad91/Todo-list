@@ -24,7 +24,11 @@ export default {
     todos: {
       type: Array,
       required: true
-    }
+    },
+    // todoIsDone: {
+    //   type: Boolean,
+    //   required: true
+    // }
   },
   methods: {
     removeTodo(todo) {
@@ -36,30 +40,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.todo-list {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 20px;
-  list-style: none;
-  width: 95%;
-  border: 1px solid rgb(34, 136, 252);
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  row-gap: 20px;
-}
 
-.todo-list-item {
-  display: inline-block;
-  margin-right: 10px;
-}
-.todo-list-enter-active,
-.todo-list-leave-active {
-  transition: all 1s ease;
-}
-.todo-list-enter-from,
-.todo-list-leave-to {
-  opacity: 0;
-  transform: translateY(30px);
-}
 </style>

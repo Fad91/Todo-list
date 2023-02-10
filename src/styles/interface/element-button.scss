@@ -1,0 +1,9 @@
+.app-btn {
+  border: 1px solid teal;
+  background-color: #ffffff;
+  color: #393939;
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
