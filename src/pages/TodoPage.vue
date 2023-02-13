@@ -5,8 +5,8 @@
     <router-link class="todo-app__link" to="/done-todos">
       Перейти к сделанным туду
     </router-link>
-    <TodoList v-if="$store.state.todos.length > 0"
-    :todos="$store.state.todos"
+    <TodoList v-if="$store.getters.TODOS.length > 0"
+    :todos="$store.getters.TODOS"
     :taskDone="taskDone"
     @removeTodo="removeTodo"
     ></TodoList>
@@ -18,21 +18,21 @@
   
   import TodoList from '@/components/TodoList'
   import AddTodo from '@/components/AddTodo'
-  // import {mapActions} from 'vuex'
+  import { mapGetters } from 'vuex'
   export default {
     components: {
       TodoList, AddTodo
     },
     data() {
       return {
-        title: 'Туду лист'
+        title: 'Туду лист',
       }
     }, methods: {
       addTodo(newTodo) {
         this.$store.commit('addTodo', newTodo);
       },
       removeTodo(todo) {
-        this.$store.commit('removeTodo', todo);
+        this.$store.commit('REMOVE_TODO', { array: this.$store.getters.TODOS, todo: todo});
       },
       moveToDoneTodos(todo) {
         this.$store.commit('moveToDoneTodos', todo);
@@ -53,7 +53,7 @@
     //   }
     // },
     computed: {
-
+      ...mapGetters(['TODOS', 'DONE_TODOS'])
     },
     mounted () {
       this.$store.dispatch('getTodos');

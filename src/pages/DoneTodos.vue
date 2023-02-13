@@ -1,8 +1,8 @@
 <template>
   <div class="todo-app">
     <h1 class="todo-app__title">{{ title }}</h1>
-    <TodoList v-if="$store.state.doneTodos.length > 0"
-    :todos="$store.state.doneTodos"
+    <TodoList v-if="$store.getters.DONE_TODOS.length > 0"
+    :todos="$store.getters.DONE_TODOS"
     @removeTodo="removeTodo"
     ></TodoList>
     <div v-else>Задач нет</div>
@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     removeTodo(todo) {
-        this.$store.commit('removeDoneTodo', todo);
+        this.$store.commit('removeDoneTodo', this.$store.getters.DONE_TODOS, todo);
     },
     moveToUndoneTodos(todo) {
         this.$store.commit('moveToUndoneTodos', todo);

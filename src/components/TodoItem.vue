@@ -7,7 +7,7 @@
       Удалить
     </button>
     <div class="todo-item__btns-wrapper">
-      <el-button v-if="!$store.state.taskDone" class="todo-item__button" type="button" @click="changeTaskStatement">Done</el-button>
+      <el-button v-if="!$store.getters.TASK_DONE" class="todo-item__button" type="button" @click="changeTaskStatement">Done</el-button>
       <el-button v-else class="todo-item__button" type="button" @click="changeTaskStatement">Undone</el-button>
     </div>
   </li>
@@ -42,7 +42,7 @@ export default {
     },
     changeTaskStatement() {
       // this.taskDone = !this.taskDone
-      if (this.$store.state.taskDone) {
+      if (this.$store.getters.TASK_DONE) {
         this.$store.commit('moveToUndoneTodos', this.todo)
       } else {
         this.$store.commit('moveToDoneTodos', this.todo)        
