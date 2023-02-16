@@ -49,15 +49,11 @@ export default createStore({
     //   })
     //   localStorage.setItem('doneTodos', JSON.stringify(state.doneTodos))
     //  },
-     REMOVE_TODO(state, {array, todo} = {}) {
-       state.array = array;
-       let id = todo.id;
-       console.log(array)
-       console.log(todo.id)
-       state.array = array.filter((el) => {
-         console.log(el.id)
-         return el.id != id
+     REMOVE_TODO(state, {array, todo}) {
+       array = array.filter((el) => {
+         return el.id != todo.id
        })
+       console.log(array)
      },
      moveToDoneTodos(state, todo) {
        state.todos = state.todos.filter(el => {

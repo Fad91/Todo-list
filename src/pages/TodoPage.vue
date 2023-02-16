@@ -7,10 +7,18 @@
     </router-link>
     <TodoList v-if="$store.getters.TODOS.length > 0"
     :todos="$store.getters.TODOS"
-    :taskDone="taskDone"
+    :taskDone="$store.getters.TASK_DONE"
     @removeTodo="removeTodo"
     ></TodoList>
     <div v-else>Задач нет</div>
+    <el-dialog :show="dialogVisible" v-show="!isDialogShown">
+      <p>Вы точно хотите удалить эту туду?</p>
+      <label>
+        <input type="checkbox" name="checkbox" v-model="checkedCheckbox">
+        Больше не показывать это окно
+      </label>
+      <el-button @click="hideDialog">Подтвердить</el-button>
+    </el-dialog>
   </div>
 </template>
   
@@ -26,16 +34,26 @@
     data() {
       return {
         title: 'Туду лист',
+        dialogVisible: false,
+        checkedCheckbox: false,
+        isDialogShown: false
       }
     }, methods: {
       addTodo(newTodo) {
-        this.$store.commit('addTodo', newTodo);
+        this.$store.commit('ADD_TODO', newTodo);
       },
-      removeTodo(todo) {
-        this.$store.commit('REMOVE_TODO', { array: this.$store.getters.TODOS, todo: todo});
+      removeTodo() {
+        // this.$store.commit('REMOVE_TODO', { array: this.$store.getters.TODOS, todo: todo});
+        this.dialogVisible = true
       },
       moveToDoneTodos(todo) {
         this.$store.commit('moveToDoneTodos', todo);
+      },
+      hideDialog() {
+        if (this.checkedCheckbox) {
+          this.isDialogShown = true;
+        }
+        this.dialogVisible = false;
       }
       // changedTodos() {
       //   return this.todos.forEach(todo => {
@@ -44,14 +62,16 @@
       //     })
       // }
     },
-    // watch: {
-    //   todos: {
-    //     handler() {
-    //       localStorage.setItem('todos', JSON.stringify(this.$store.state.todos))
-    //     },
-    //     deep: true
-    //   }
-    // },
+    watch: {
+      todos: {
+        handler() {
+          if (this.todos.length === 0) {
+            this.isDialogShown = false;            
+          }
+        },
+        deep: true
+      }
+    },
     computed: {
       ...mapGetters(['TODOS', 'DONE_TODOS'])
     },
