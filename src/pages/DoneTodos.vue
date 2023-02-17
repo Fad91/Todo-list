@@ -25,9 +25,6 @@ export default {
     removeTodo(todo) {
         this.$store.commit('removeDoneTodo', this.$store.getters.DONE_TODOS, todo);
     },
-    moveToUndoneTodos(todo) {
-        this.$store.commit('moveToUndoneTodos', todo);
-    }
   },
   mounted () {
       this.$store.dispatch('GET_TODOS', 'doneTodos')

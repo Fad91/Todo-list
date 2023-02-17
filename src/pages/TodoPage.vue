@@ -59,14 +59,11 @@
         // }, 2000)
         // this.hideDialog()
       },
-      moveToDoneTodos(todo) {
-        this.$store.commit('moveToDoneTodos', todo);
-      },
       hideDialog() {
         if (this.checkedCheckbox) {
           this.isDialogShown = true;
         }
-        this.$store.commit('setDialogVisible', false)
+        this.$store.commit('SET_DIALOG_VISIBLE', false)
         // this.removeTodo(todo)
       },
     },

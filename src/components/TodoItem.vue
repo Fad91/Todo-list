@@ -52,11 +52,11 @@ export default {
       this.$emit('removeTodo', this.todo);
     },
     changeTaskStatement() {
-      // this.taskDone = !this.taskDone
       if (this.$store.getters.TASK_DONE) {
-        this.$store.commit('moveToUndoneTodos', this.todo)
+        console.log(this.todo)
+        this.$store.commit('MOVE_TO_OTHER_ARRAY', {array: 'doneTodos', otherArray: 'todos', todo: this.todo}); 
       } else {
-        this.$store.commit('moveToDoneTodos', this.todo)        
+        this.$store.commit('MOVE_TO_OTHER_ARRAY', {array: 'todos', otherArray: 'doneTodos', todo: this.todo});        
       }
       // 
     },

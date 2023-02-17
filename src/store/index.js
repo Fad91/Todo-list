@@ -37,7 +37,7 @@ export default createStore({
     SET_TASKDONE(state, taskDone) {
      state.taskDone = taskDone;
     },
-    setDialogVisible(state, dialogVisible) {
+    SET_DIALOG_VISIBLE(state, dialogVisible) {
       state.dialogVisible = dialogVisible
     },
     ADD_TODO(state, {array, todo} = {}) {
@@ -49,20 +49,14 @@ export default createStore({
          return el.id != todo.id
        })
      },
-     moveToDoneTodos(state, todo) {
-       state.todos = state.todos.filter(el => {
-         return el.id !== todo.id
-       })
-       state.doneTodos.push(todo);
-       localStorage.setItem('doneTodos', JSON.stringify(state.doneTodos))
+     MOVE_TO_OTHER_ARRAY(state, {array, otherArray, todo} = {}) {
+        state[array] = state[array].filter((el) => {
+          localStorage.setItem(array, JSON.stringify(state[otherArray]))
+          return el.id != todo.id
+        })
+       state[otherArray].push(todo);
+       localStorage.setItem(otherArray, JSON.stringify(state[otherArray]))
      },
-     moveToUndoneTodos(state, todo) {
-      state.doneTodos = state.doneTodos.filter(el => {
-        return el.id !== todo.id
-      })
-      state.todos.push(todo);
-      localStorage.setItem('todos', JSON.stringify(state.todos))
-    }
    },
    actions: {
     GET_TODOS({commit}, array) {
