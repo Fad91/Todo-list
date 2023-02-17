@@ -10,7 +10,8 @@ export default createStore({
     doneTodos: [
       { id: "1", title: "Сделанное туту", text: "123123" }
     ],
-    taskDone: false
+    taskDone: false,
+    dialogVisible: false
    },
    getters: {
     TODOS: state => {
@@ -21,6 +22,9 @@ export default createStore({
     },
     TASK_DONE: state => {
       return state.taskDone
+    },
+    DIALOG_VISIBLE: state => {
+      return state.dialogVisible
     }
    },
    mutations: {
@@ -33,10 +37,13 @@ export default createStore({
     setTaskDone(state, taskDone) {
      state.taskDone = taskDone;
     },
-     ADD_TODO(state, todo) {
-       state.todos.push(todo);
-       localStorage.setItem('todos', JSON.stringify(state.todos))
-     },
+    setDialogVisible(state, dialogVisible) {
+      state.dialogVisible = dialogVisible
+    },
+    ADD_TODO(state, {array, todo} = {}) {
+      state[array].push(todo);
+      localStorage.setItem(array, JSON.stringify(state.todos))
+    },
     //  REMOVE_TODO(state, todo) {
     //   state.todos = state.todos.filter(el => {
     //     return el.id !== todo.id
@@ -49,11 +56,10 @@ export default createStore({
     //   })
     //   localStorage.setItem('doneTodos', JSON.stringify(state.doneTodos))
     //  },
-     REMOVE_TODO(state, {array, todo}) {
-       array = array.filter((el) => {
+     REMOVE_TODO(state, {array, todo} = {}) {
+       state[array] = state[array].filter((el) => {
          return el.id != todo.id
        })
-       console.log(array)
      },
      moveToDoneTodos(state, todo) {
        state.todos = state.todos.filter(el => {

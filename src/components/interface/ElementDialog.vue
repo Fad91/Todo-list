@@ -1,5 +1,5 @@
 <template>
-  <div class="dialog" v-if="show" @click="hideDialog">
+  <div class="dialog" v-if="$store.getters.DIALOG_VISIBLE">
     <div @click.stop class="dialog__content">
       <slot></slot>
     </div> 
@@ -16,9 +16,6 @@ export default {
     }
   },
   methods: {
-    hideDialog() {
-      this.$emit('update:show', false)
-    }
   },
   mounted() {
 
