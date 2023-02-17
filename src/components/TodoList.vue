@@ -41,10 +41,6 @@ export default {
       type: Array,
       required: true
     },
-    taskDone: {
-      type: Boolean,
-      required: true
-    }
   },
   methods: {
     removeTodo(todo) {

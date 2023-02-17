@@ -28,13 +28,13 @@ export default createStore({
     }
    },
    mutations: {
-    setTodos(state, todos) {
+    SET_TODOS(state, todos) {
       state.todos = todos
     },
-    setDoneTodos(state, doneTodos) {
+    SET_DONETODOS(state, doneTodos) {
      state.doneTodos = doneTodos
     },
-    setTaskDone(state, taskDone) {
+    SET_TASKDONE(state, taskDone) {
      state.taskDone = taskDone;
     },
     setDialogVisible(state, dialogVisible) {
@@ -44,18 +44,6 @@ export default createStore({
       state[array].push(todo);
       localStorage.setItem(array, JSON.stringify(state.todos))
     },
-    //  REMOVE_TODO(state, todo) {
-    //   state.todos = state.todos.filter(el => {
-    //     return el.id !== todo.id
-    //   })
-    //   localStorage.setItem('todos', JSON.stringify(state.todos))
-    //  },
-    //  REMOVE_DONE_TODO(state, doneTodo) {
-    //   state.doneTodos = state.doneTodos.filter(el => {
-    //     return el.id !== doneTodo.id
-    //   })
-    //   localStorage.setItem('doneTodos', JSON.stringify(state.doneTodos))
-    //  },
      REMOVE_TODO(state, {array, todo} = {}) {
        state[array] = state[array].filter((el) => {
          return el.id != todo.id
@@ -77,15 +65,10 @@ export default createStore({
     }
    },
    actions: {
-    getTodos({commit}) {
-      if (localStorage.getItem('todos')) {
-        commit('setTodos', JSON.parse(localStorage.getItem('todos')));
+    GET_TODOS({commit}, array) {
+      if (localStorage.getItem(`${array}`)) {
+        commit(`SET_${array.toUpperCase()}`, JSON.parse(localStorage.getItem(`${array}`)));
       }
     },
-    getDoneTodos({commit}) {
-      if (localStorage.getItem('doneTodos')) {
-        commit('setDoneTodos', JSON.parse(localStorage.getItem('doneTodos')));
-      }    
-    }
    }
 })

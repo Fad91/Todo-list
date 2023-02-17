@@ -30,8 +30,8 @@ export default {
     }
   },
   mounted () {
-      this.$store.dispatch('getDoneTodos')
-      this.$store.commit('setTaskDone', true)
+      this.$store.dispatch('GET_TODOS', 'doneTodos')
+      this.$store.commit('SET_TASKDONE', true)
     }
 }
 </script>

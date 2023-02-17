@@ -87,8 +87,8 @@
       ...mapGetters(['TODOS', 'DONE_TODOS'])
     },
     mounted () {
-      this.$store.dispatch('getTodos');
-      // this.$store.commit('setTaskDone', false)
+      this.$store.dispatch('GET_TODOS','todos');
+      this.$store.commit('SET_TASKDONE', false)
     }
   }
   </script>
