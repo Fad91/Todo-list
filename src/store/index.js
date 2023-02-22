@@ -11,7 +11,8 @@ export default createStore({
       { id: "1", title: "Сделанное туту", text: "123123" }
     ],
     taskDone: false,
-    dialogVisible: false
+    dialogVisible: false,
+    checkedCheckbox: false
    },
    getters: {
     TODOS: state => {
@@ -25,6 +26,9 @@ export default createStore({
     },
     DIALOG_VISIBLE: state => {
       return state.dialogVisible
+    },
+    CHECKED_CHECKBOX: state => {
+      return state.checkedCheckbox      
     }
    },
    mutations: {
@@ -40,14 +44,18 @@ export default createStore({
     SET_DIALOG_VISIBLE(state, dialogVisible) {
       state.dialogVisible = dialogVisible
     },
+    SET_CHECKED_CHECKBOX(state, checkedCheckbox) {
+      state.checkedCheckbox = checkedCheckbox
+    },
     ADD_TODO(state, {array, todo} = {}) {
       state[array].push(todo);
-      localStorage.setItem(array, JSON.stringify(state.todos))
+      localStorage.setItem(array, JSON.stringify(state[array]))
     },
      REMOVE_TODO(state, {array, todo} = {}) {
        state[array] = state[array].filter((el) => {
          return el.id != todo.id
        })
+       localStorage.setItem(array, JSON.stringify(state[array]))
      },
      MOVE_TO_OTHER_ARRAY(state, {array, otherArray, todo} = {}) {
         state[array] = state[array].filter((el) => {

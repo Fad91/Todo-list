@@ -10,14 +10,6 @@
       <el-button v-if="!$store.getters.TASK_DONE" class="todo-item__button" type="button" @click="changeTaskStatement">Done</el-button>
       <el-button v-else class="todo-item__button" type="button" @click="changeTaskStatement">Undone</el-button>
     </div>
-    <el-dialog :show="$store.getters.DIALOG_VISIBLE" v-show="!isDialogShown">
-        <p>Вы точно хотите удалить эту туду?</p>
-        <label>
-          <input type="checkbox" name="checkbox" v-model="checkedCheckbox">
-          Больше не показывать это окно
-        </label>
-        <el-button @click="removeTodoAfterClick">Подтвердить</el-button>
-    </el-dialog>
   </li>
 </template>
 
@@ -34,17 +26,10 @@ export default {
       type: Number,
       required: true
     },
-    // todoIsDone: {
-    //   type: Boolean,
-    //   required: true
-    // }
   },
   data() {
     return {
-      // taskDone: false
-      checkedCheckbox: false,
-      isDialogShown: false,
-      popupButtonClicked: false
+
     }
   }, 
   methods: {
@@ -59,9 +44,6 @@ export default {
         this.$store.commit('MOVE_TO_OTHER_ARRAY', {array: 'todos', otherArray: 'doneTodos', todo: this.todo});        
       }
       // 
-    },
-    removeTodoAfterClick(todo) {
-      this.$emit("removeTodoAfterClick", todo)
     }
   },
 }
